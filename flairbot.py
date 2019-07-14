@@ -115,12 +115,12 @@ class bot:
 						else:
 							continue
 
+				for key, value in self.loggingdict.items():
+					if (time.time() - value[1]) > 7200:
+						self.loggingdict.pop(key)
+
 				time.sleep(60.0 - ((time.time() - start_time) % 60.0)) 	
-
-			for key, value in self.loggingdict.items():
-				if (time.time() - value[1]) > 7200:
-					self.loggingdict.pop(key)
-
+						
 		except KeyboardInterrupt:
 			pass
 
@@ -141,5 +141,3 @@ if __name__ == '__main__':
 	bot().threading()
 
 	print('Processing time:', time.time() - now_time)
-
-
