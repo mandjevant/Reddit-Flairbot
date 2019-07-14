@@ -123,18 +123,47 @@ class bot:
 						
 		except KeyboardInterrupt:
 			pass
+	
+	
+	# checks new for nsfw flairs, marks nsfw accordingly
+	def nsfwflair_check(self):
+		print('thread 3 running')
+		try: 												
+			start_time = time.time()		
+
+			while True:
+				for submission in self.reddit.subreddit(self.sub).new(limit=100):
+					if submission.link_flair_text != None:
+						if submission.over_18 == False:
+							flair = submission.link_flair_text
+							if 'NSFW' in flair:
+								submission.mod.nsfw()
+							else:
+								continue
+						else:
+							continue
+					else: 
+						continue
+
+				time.sleep(60.0 - ((time.time() - start_time) % 60.0)) 	
+
+		except KeyboardInterrupt:
+			pass
 
 
 	# threading to execute functions in parallel
 	def threading(self):
 		a = threading.Thread(target=self.new_flair_check, name='Thread-a', daemon=True)		
 		b = threading.Thread(target=self.responses_check, name='Thread-b', daemon=True)		
+		c = threading.Thread(target=self.nsfwflair_check, name='Thread-c', daemon=True)		
 
 		a.start()																		
 		b.start()																		
+		c.start()																		
 
 		a.join()																		
 		b.join()
+		c.join()																		
 
 
 if __name__ == '__main__':
