@@ -19,7 +19,7 @@ class bot:
 
 		self.time_removal = 1800 # time between comment and removal of post
 		self.time_flair = 180 # initial time before comment																																							
-		self.flair_message =  ('Your post does not have a flair and will soon be removed. Please add a flair within ' + str(int(self.time_removal/60)) + ' minutes or your post will be removed. This was an automated action by the r/worldpolitics moderation team.')
+		self.flair_message =  ('Your post does not have a flair and will soon be removed. Please add a flair within ' + str(int(self.time_removal/60)) + ' minutes or your post will be removed. This was an automated action by the r/'+ self.sub +' moderation team.')
 		self.removal_message = ('Your post was removed because a flair was not set in time.')																							
 		self.removal_title = ('No flair')																																				
 		self.removal_type = ('public')	
